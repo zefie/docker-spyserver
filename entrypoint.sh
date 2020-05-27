@@ -17,8 +17,29 @@ sed -i "s/device_type.*/device_type = ${DEVICE_TYPE:=Auto}/g" $CONFIG
 sed -i "s/device_serial.*/device_serial = ${DEVICE_SERIAL:=0}/g" $CONFIG
 sed -i "s/fft_fps.*/fft_fps = ${FFT_FPS:=15}/g" $CONFIG
 sed -i "s/fft_bin_bits.*/fft_bin_bits = ${FFT_BIN_BITS:=16}/g" $CONFIG
-sed -i "s/initial_frequency.*/initial_frequency = ${INITIAL_FREQUENCY:=7100000}/g" $CONFIG
 sed -i "s/buffer_size_ms.*/buffer_size_ms = ${BUFFER_SIZE_MS:=50}/g" $CONFIG
 sed -i "s/buffer_count.*/buffer_count = ${BUFFER_COUNT:=10}/g" $CONFIG
+
+if [ ! -z "${DEVICE_SAMPLE_RATE}" ]; then
+	sed -i "s/#device_sample_rate.*/device_sample_rate = ${DEVICE_SAMPLE_RATE}/g" $CONFIG
+fi
+if [ ! -z "${FORCE_8BIT}" ]; then
+	sed -i "s/#force_8bit.*/force_8bit = 1/g" $CONFIG
+fi
+if [ ! -z "${MAXIMUM_BANDWIDTH}" ]; then
+	sed -i "s/#maximum_bandwidth.*/maximum_bandwidth = ${MAXIMUM_BANDWIDTH}/g" $CONFIG
+fi
+if [ ! -z "${INITIAL_FREQUENCY}" ]; then
+	sed -i "s/#initial_frequency.*/initial_frequency = ${INITIAL_FREQUENCY}/g" $CONFIG
+fi
+if [ ! -z "${MINIMUM_FREQUENCY}" ]; then
+	sed -i "s/#minimum_frequency.*/minimum_frequency = ${MINIMUM_FREQUENCY}/g" $CONFIG
+fi
+if [ ! -z "${MAXIMUM_FREQUENCY}" ]; then
+	sed -i "s/#maximum_frequency.*/maximum_frequency = ${MAXIMUM_FREQUENCY}/g" $CONFIG
+fi
+if [ ! -z "${INITIAL_GAIN}" ]; then
+	sed -i "s/#initial_gain.*/initial_gain = ${INITIAL_GAIN}/g" $CONFIG
+fi
 
 exec spyserver $CONFIG
